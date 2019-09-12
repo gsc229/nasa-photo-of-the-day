@@ -5,9 +5,12 @@ import axios from "axios";
 
 export default function Frame(props) {
   const [pictureDataObj, setPictureDataObj] = useState({});
+  console.log(`from Frame TOP props.submitDay ${props.submitDay}`);
   /* pitureDataObj:
+    API KEY: nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ
+    API KEY and URL: `https://api.nasa.gov/planetary/apod?date=2019-8-11&api_key=nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ`
     {
-      
+    
     copyright: "Bray Falls"
     date: "2019-09-11"
     explanation: "What energizes the Heart Nebula?..."
@@ -21,14 +24,17 @@ export default function Frame(props) {
   useEffect(() => {
     axios
       .get(
-        `https://api.nasa.gov/planetary/apod?date=2010-08-10&api_key=DEMO_KEY`
+        `https://api.nasa.gov/planetary/apod?date=${props.submitDay}&api_key=nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ`
       )
       .then(response => {
         const picData = response.data;
         console.log(`From Fram useEffect: `, picData);
+        console.log(`from Frame .then props.submitDay ${props.submitDay}`);
         setPictureDataObj(picData);
       })
       .catch(error => {
+        const errorImage = `https://cdn-images-1.medium.com/max/800/1*esMflK7UItD8mWn4UbGedg.jpeg`;
+        setPictureDataObj({ hdurl: errorImage });
         console.log(`Sorry there's no picutre `, error);
       });
   }, []);

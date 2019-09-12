@@ -23,6 +23,35 @@
   color: #61dafb;
 }
 
+/* DatePicker */
+.date_buttons_container {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+.selector_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  border: 2px solid black;
+}
+
+.selector_container button {
+  height: 40px;
+  width: 45px;
+  border: 1px solid grey;
+  background: lightblue;
+  cursor: pointer;
+}
+
+.selector_container p {
+  margin: 0 10px;
+}
+
+.select_year_container {
+}
+
 #apod_pic {
   height: 500px;
   width: 500px;
