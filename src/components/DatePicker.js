@@ -1,6 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Frame from "./Frame";
-
+/* pitureDataObj:
+    API KEY: nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ
+    API KEY and URL: `https://api.nasa.gov/planetary/apod?date=2019-8-11&api_key=nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ`
+    {
+    
+    copyright: "Bray Falls"
+    date: "2019-09-11"
+    explanation: "What energizes the Heart Nebula?..."
+    hdurl: "https://apod.nasa.gov/apod/image/1909/HeartNebula_Falls_2378.jpg"
+    media_type: "image"
+    service_version: "v1"
+    title: "IC 1805: The Heart Nebula"
+    url: "https://apod.nasa.gov/apod/image/1909/HeartNebula_Falls_960.jpg"
+    }
+  */
 export default function DatePicker() {
   let yyyy = new Date().getFullYear();
   let mm = new Date().getMonth() + 1;
@@ -8,16 +23,43 @@ export default function DatePicker() {
   let today = `${yyyy}-${mm}-${dd}`;
   const earliestDay = new Date(1994, 5, 20);
   const latestDay = new Date(today);
-  //console.log(`today is a :${typeof today}`);
-  //const [date, setDate] = useState(today);
-  // SET THE STATE
+
+  // SET THE STATE DATEPICKER and picutreDataObject
+  const [pictureDataObj, setPictureDataObj] = useState({});
   const [year, setYear] = useState(yyyy);
   const [month, setMonth] = useState(mm);
   const [day, setDay] = useState(dd);
-  let submitDay = `${year}-${month}-${day}`;
-  let passDate = submitDay;
-  console.log(`Submit Day: ${submitDay}`);
-  console.log(`Pass Date: ${passDate}`);
+  const submitDay = `${year}-${month}-${day}`;
+  const [passDate, setPassDate] = useState(today);
+
+  console.log(`Submit Day: ${typeof submitDay}`);
+  console.log(`Pass Date: ${typeof passDate}`);
+
+  let url = pictureDataObj.hdurl;
+  let title = pictureDataObj.title;
+  let copyright = pictureDataObj.copyright;
+  let explain = pictureDataObj;
+  let date = pictureDataObj.date;
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.nasa.gov/planetary/apod?date=${passDate}&api_key=nlA0HaKZeNU9Umkt139XDanQEEfmYSJ2vC0JLwAJ`
+      )
+      .then(response => {
+        const picData = response.data;
+        console.log(`From DatePicker useEffect: `, picData);
+        console.log(`from DatePicker .then passDate ${passDate}`);
+        setPictureDataObj(picData);
+      })
+      .catch(error => {
+        const errorImage = `https://cdn-images-1.medium.com/max/800/1*esMflK7UItD8mWn4UbGedg.jpeg`;
+        setPictureDataObj({ hdurl: errorImage });
+        console.log(`Sorry there's no picutre `, error);
+      });
+  }, []);
+  if (!pictureDataObj.hdurl) return <h3>Loading...</h3>;
+
   // EVENT HANDLERS
   let selectedDay = new Date(year - 1, month, day);
 
@@ -37,8 +79,8 @@ export default function DatePicker() {
     alert(`NASA is good, but not that good. Try a date not set in the future`);
   }
   // Function sets variable to be passed to Frame component;
-  const passDateToFrame = e => {
-    return passDate;
+  const passDateToUseEffect = e => {
+    setPassDate(submitDay);
   };
 
   const yearPlusTen = e => {
@@ -114,10 +156,20 @@ export default function DatePicker() {
           <p>Day</p>
           <button onClick={dayMinusOne}>-1</button>
         </div>
-        <button onClick={passDateToFrame}>Get Picture</button>
+        <button onClick={() => setPassDate(submitDay.toString())}>
+          Get Picture
+        </button>
       </div>
 
-      <Frame submitDay={submitDay} />
+      <Frame
+        title={title}
+        explain={explain}
+        copyright={copyright}
+        date={date}
+        submitDay={submitDay}
+        url={url}
+        key={date}
+      />
     </div>
   );
 }
