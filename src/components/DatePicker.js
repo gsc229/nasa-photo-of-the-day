@@ -30,6 +30,7 @@ export default function DatePicker() {
   const [month, setMonth] = useState(mm);
   const [day, setDay] = useState(dd);
   const submitDay = `${year}-${month}-${day}`;
+  // setting the initial state of passDate to today from above
   const [passDate, setPassDate] = useState(today);
 
   console.log(`Submit Day: ${typeof submitDay}`);
@@ -134,6 +135,7 @@ export default function DatePicker() {
 
   return (
     <div className="date_picker_container">
+      <h2>Today is {today}</h2>
       <h1>
         NASA's Astronomy Picture of the Day for: {year}-{month}-{day}
       </h1>
