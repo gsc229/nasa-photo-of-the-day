@@ -80,9 +80,7 @@ export default function DatePicker() {
     alert(`NASA is good, but not that good. Try a date not set in the future`);
   }
   // Function sets variable to be passed to Frame component;
-  const passDateToUseEffect = e => {
-    setPassDate(submitDay);
-  };
+  
 
   const yearPlusTen = e => {
     setYear(year + 10);
