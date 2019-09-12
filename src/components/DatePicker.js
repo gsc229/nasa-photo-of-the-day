@@ -49,7 +49,7 @@ export default function DatePicker() {
       .then(response => {
         const picData = response.data;
         console.log(`From DatePicker useEffect: `, picData);
-        console.log(`from DatePicker .then passDate ${passDate}`);
+        console.log(`from DatePicker .then passDate ${typeof passDate}`);
         setPictureDataObj(picData);
       })
       .catch(error => {
@@ -57,7 +57,7 @@ export default function DatePicker() {
         setPictureDataObj({ hdurl: errorImage });
         console.log(`Sorry there's no picutre `, error);
       });
-  }, []);
+  }, [passDate]);
   if (!pictureDataObj.hdurl) return <h3>Loading...</h3>;
 
   // EVENT HANDLERS
@@ -156,9 +156,7 @@ export default function DatePicker() {
           <p>Day</p>
           <button onClick={dayMinusOne}>-1</button>
         </div>
-        <button onClick={() => setPassDate(submitDay.toString())}>
-          Get Picture
-        </button>
+        <button onClick={() => setPassDate(submitDay)}>Get Picture</button>
       </div>
 
       <Frame
