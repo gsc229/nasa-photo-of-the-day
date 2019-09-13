@@ -10,7 +10,7 @@ const upArrow = <FontAwesomeIcon icon={faArrowAltCircleUp} />;
 const downArrow = <FontAwesomeIcon icon={faArrowAltCircleDown} />;
 
 const ArrowBtn = styled.button`
-  height: 40px;
+  height: 45px;
   width: 45px;
   border: 1px solid grey;
   background: lightblue;
@@ -172,7 +172,7 @@ export default function DatePicker() {
           <p>Day: {day}</p>
           <ArrowBtn onClick={dayMinusOne}>{downArrow}</ArrowBtn>
         </div>
-        <div className="submit_container">
+        <div className="submit_container selector_container">
           <button id="submit_btn" onClick={() => setPassDate(submitDay)}>
             Get Picture
           </button>
