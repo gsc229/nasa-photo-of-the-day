@@ -3,9 +3,19 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+  animation: App-logo-spin infinite 20s linear reverse;
+  height: 50px;
+  width: 50px;
+  font-size: 15px;
   pointer-events: none;
+  margin-top: 20px;
+  border-left: 12px solid lightblue;
+  border-right: 12px solid yellow;
+  border-top: 5px solid red;
+  border-bottom: 5px solid orangered;
+
+  text-align: center;
+  border-radius: 50%;
 }
 
 .App-header {
@@ -24,16 +34,27 @@
 }
 
 /* DatePicker */
+.date_picker_container h1 {
+  line-height: 100px;
+}
+.date_picker_container h1 span {
+  border: 5px solid yellow;
+  padding: 10px;
+  display: inline;
+}
 .date_buttons_container {
   display: flex;
   justify-content: center;
   margin: 20px auto;
 }
-.date_buttons_container button {
+
+#submit_btn {
   background-color: lightgreen;
   border-radius: 4px;
-  border: 1px solid green;
-
+  border: 2px solid green;
+  font-size: 1.5rem;
+  color: beige;
+  padding: 8px;
   font-weight: bolder;
 }
 .selector_container {
@@ -43,6 +64,7 @@
   margin: 0 20px;
   border: 1px solid black;
   border-radius: 4px;
+  width: fit-content;
 }
 
 .date_buttons_container .selector_container button {
@@ -70,5 +92,44 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .App {
+    /* width: 100%; */
+  }
+  .App-header {
+    width: 100%;
+  }
+  .date_picker_container {
+    max-width: 100%;
+    padding: 30px;
+  }
+
+  .date_picker_container h1 {
+    line-height: 40px;
+    font-size: 20px;
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .date_picker_container h1 span {
+    padding: 1px;
+  }
+
+  .date_buttons_container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .selector_container {
+    margin: 5px;
+  }
+
+  .frame {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
